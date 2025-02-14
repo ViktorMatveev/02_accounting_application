@@ -1,0 +1,4 @@
+item_name,is_expense,quantity,unit_price
+Воздушные шарики,TRUE,5000,5
+Продажа билетов,FALSE,90,250
+Аренда оборудования,TRUE,1,15000

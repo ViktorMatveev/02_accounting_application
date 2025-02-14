@@ -1,0 +1,3 @@
+item_name,is_expense,quantity,unit_price
+Воздушные шарики,TRUE,1000,10
+Продажа воздушных шариков,FALSE,50,1000
