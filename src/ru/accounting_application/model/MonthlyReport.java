@@ -14,6 +14,9 @@ public class MonthlyReport {
     private int mostExpendableProductValue = 0;
     private int monthTotalExpenses;
     private int monthTotalIncome;
+    // TODO: 15.02.2025 List!
+    // TODO: 15.02.2025 Не константа
+    // TODO: 15.02.2025 rename transactionsByCategories
     private final Map<String, ArrayList<Transaction>> MONTHLY_REPORT_BY_CATEGORIES = new HashMap<>();
 
     public MonthlyReport() {

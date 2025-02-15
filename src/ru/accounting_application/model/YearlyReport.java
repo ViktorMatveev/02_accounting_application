@@ -6,8 +6,11 @@ import java.util.Map;
 public class YearlyReport {
     private static final int CURRENT_YEAR = 2024;
     private static final String TRUE = "true";
+    // TODO: 15.02.2025 Переименовать
+    // TODO: 15.02.2025 Не хорошо использовать массив для хранения бизнес-значений. Лучше создать отдельный класс-модель с двумя полями
     private final Map<Integer, int[]> yearlyReport = new HashMap<>();
 
+    // TODO: 15.02.2025 Переименовать, и параметр метода тоже переименовать
     public void addData(String data) {
         String[] reportData = data.split(",");
         int currentMonth = Integer.parseInt(reportData[0]);
@@ -44,12 +47,12 @@ public class YearlyReport {
         } else {
             System.out.println("Данных нет");
         }
-
+// TODO: 15.02.2025 Не должно быть пустых строк, удалить
     }
 
     public void printProfit() {
         for (int month : yearlyReport.keySet()) {
-            int[] totalMonthlyOperations = yearlyReport.get(month);
+            int[] totalMonthlyOperations = yearlyReport.get(month); // TODO: 15.02.2025 Убрать массивы на объекты
             System.out.printf("За %d месяц прибыль составила: %d", month, (totalMonthlyOperations[1] - totalMonthlyOperations[0]));
         }
     }

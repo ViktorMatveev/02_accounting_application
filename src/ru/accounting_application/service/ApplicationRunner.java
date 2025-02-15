@@ -7,7 +7,10 @@ import java.util.InputMismatchException;
 import java.util.Scanner;
 
 public class ApplicationRunner {
+    // TODO: 15.02.2025 Переписать, метод должен влезать на экран!
     public static void run() {
+        // TODO: 15.02.2025 Подумать над разделением на классы для хранения и обработки данных и для выводы этих данных
+        //(хранение перенести в репортСервис)
         Scanner scanner = new Scanner(System.in);
         YearlyReport yearlyReport = new YearlyReport();
         MonthTotalPerYear monthTotalPerYear = new MonthTotalPerYear();
@@ -16,6 +19,11 @@ public class ApplicationRunner {
             try {
                 printMenu();
                 int command = scanner.nextInt();
+                // TODO: 15.02.2025 Переписать switch по модному Пример:
+/*                switch (command) {
+                    case 1 -> reportService.generateYearlyReport();
+                    case 2 -> reportService.compareMonthAndYearlyReports(monthTotalPerYear);
+                }*/
                 switch (command) {
                     case 1:
                         monthTotalPerYear = reportService.generateAllMonthlyReports();
@@ -56,6 +64,7 @@ public class ApplicationRunner {
                         if (monthTotalPerYear.isReportsHasBeenRead()) {
                             monthTotalPerYear.printMonthlyPerYearStatistic();
                         } else {
+                            // TODO: 15.02.2025 Переделать на многострочный текст
                             System.out.println("Данные месячных отчетов не были прочитаны! \n Считать данные?");
                             System.out.println("1 - Да");
                             System.out.println("2 - Нет");
@@ -72,6 +81,7 @@ public class ApplicationRunner {
                         if (yearlyReport.isReportHasBeenRead()) {
                             yearlyReport.printStatistic();
                         } else {
+                            // TODO: 15.02.2025 Переделать на многострочный текст
                             System.out.println("Данные годового отчета не были прочитаны! \n Считать данные?");
                             System.out.println("1 - Да");
                             System.out.println("2 - Нет");

@@ -1,6 +1,7 @@
 package ru.accounting_application.model;
 
 public class Transaction {
+    // TODO: 15.02.2025 Это и не константы и не поля, сделать полями (назвать не капслоком)
     private final String NAME;
     private final boolean IS_EXPENSE;
     private final int QUANTITY;
