@@ -16,7 +16,7 @@ public class Transaction {
 
     public String getName() {
         return NAME;
-    } // TODO: 15.02.2025 Можно не писать
+    }
 
     public boolean getIsExpense() {
         return IS_EXPENSE;
