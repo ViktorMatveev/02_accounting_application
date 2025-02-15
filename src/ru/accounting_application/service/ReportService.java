@@ -1,17 +1,26 @@
-import java.util.ArrayList;
+package ru.accounting_application.service;
 
-public class ReportEngine { //todo Переименовать в ReportService
-    FileReader fileReader = new FileReader(); // TODO: 15.02.2025 Модификатор доступа
+import ru.accounting_application.model.MonthlyReport;
+import ru.accounting_application.model.Transaction;
+import ru.accounting_application.model.YearlyReport;
+import ru.accounting_application.utils.FileReader;
+import ru.accounting_application.utils.MonthTotalPerYear;
+
+import java.util.List;
+
+public class ReportService {
+    private static final String YEAR_REPORT_NAME = "y.2024.csv";
+    private static final FileReader FILE_READER = new FileReader();
 
     public MonthTotalPerYear generateAllMonthlyReports() {
         MonthTotalPerYear monthTotalPerYearReport = new MonthTotalPerYear();
         for (int i = 9; i <= 12; i++) {
             String fileName = "m." + (202400 + i) + ".csv";
 
-            ArrayList<String> fileLines = fileReader.readFileContests(fileName);
+            List<String> fileLines = FILE_READER.readFileContests(fileName);
             MonthlyReport monthlyReport = new MonthlyReport();
-            ArrayList<Transaction> monthlyExpenses = monthlyReport.getMonthlyExpenses();
-            ArrayList<Transaction> monthlyIncomes = monthlyReport.getMonthlyIncome();
+            List<Transaction> monthlyExpenses = monthlyReport.getMonthlyExpenses();
+            List<Transaction> monthlyIncomes = monthlyReport.getMonthlyIncome();
 
             for (int j = 1; j < fileLines.size(); j++) {
                 Transaction transaction = new Transaction(fileLines.get(j));
@@ -29,8 +38,7 @@ public class ReportEngine { //todo Переименовать в ReportService
 
     public YearlyReport generateYearlyReport() {
         YearlyReport yearlyReport = new YearlyReport();
-        String fileName = "y.2024.csv"; // TODO: 15.02.2025 Вынести ее в константы
-        ArrayList<String> fileLines = fileReader.readFileContests(fileName);
+        List<String> fileLines = FILE_READER.readFileContests(YEAR_REPORT_NAME);
         for (int i = 1; i < fileLines.size(); i++) {
             yearlyReport.addData(fileLines.get(i));
         }
@@ -48,18 +56,15 @@ public class ReportEngine { //todo Переименовать в ReportService
             int monthIncome1 = monthlyReport.getMonthTotalIncome();
             int monthIncome2 = monthlyTransactionsFromYearlyReport[1];
             if ((monthExpense1 == monthExpense2) && (monthIncome1 == monthIncome2)) {
-                System.out.println("За " + month + " месяц ошибок в отчетах нет");
+                System.out.printf("За %d месяц ошибок в отчетах нет\n", month);
             } else {
-                // TODO: 15.02.2025 printf
                 if (monthExpense1 != monthExpense2) {
-                    System.out.println("Проверить расходы за " + month + " месяц. (" + monthExpense1 + "/" + monthExpense2 + ")");
+                    System.out.printf("Проверить расходы за %d месяц. (%d/%d)\n", month, monthExpense1, monthExpense2);
                 }
                 if (monthIncome1 != monthIncome2) {
-                    System.out.println("Проверить доходы за " + month + " месяц. (" + monthIncome1 + "/" + monthIncome2 + ")");
+                    System.out.printf("Проверить расходы за %d месяц. (%d/%d)\n", month, monthIncome1, monthIncome2);
                 }
             }
         }
     }
-
-
 }

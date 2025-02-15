@@ -1,12 +1,12 @@
+package ru.accounting_application.model;
+
 import java.util.HashMap;
+import java.util.Map;
 
 public class YearlyReport {
-    private int currentYear = 2024; // TODO: 15.02.2025 Сделать константой
-    private HashMap<Integer, int[]> yearlyReport; //месяц - [расходы, доходы]
-
-    public YearlyReport() {
-        yearlyReport = new HashMap<>();
-    }
+    private static final int CURRENT_YEAR = 2024;
+    private static final String TRUE = "true";
+    private final Map<Integer, int[]> yearlyReport = new HashMap<>();
 
     public void addData(String data) {
         String[] reportData = data.split(",");
@@ -15,14 +15,14 @@ public class YearlyReport {
 
         if (yearlyReport.containsKey(currentMonth)) {
             int[] totalMonthlyOperations = yearlyReport.get(currentMonth);
-            if (reportData[2].equals("true")) {
+            if (reportData[2].equals(TRUE)) {
                 totalMonthlyOperations[0] = currentSum;
             } else {
                 totalMonthlyOperations[1] = currentSum;
             }
         } else {
             int[] totalMonthlyOperations = new int[2];
-            if (reportData[2].equals("true")) { // TODO: 15.02.2025 true вынести в константу
+            if (reportData[2].equals(TRUE)) {
                 totalMonthlyOperations[0] = currentSum;
             } else {
                 totalMonthlyOperations[1] = currentSum;
@@ -37,7 +37,7 @@ public class YearlyReport {
 
     public void printStatistic() {
         if (!yearlyReport.isEmpty()) {
-            System.out.println("рассматриваемый год - " + this.currentYear);
+            System.out.printf("рассматриваемый год - %d", CURRENT_YEAR);
             printProfit();
             printAverageExpenses();
             printAverageIncome();
@@ -50,8 +50,7 @@ public class YearlyReport {
     public void printProfit() {
         for (int month : yearlyReport.keySet()) {
             int[] totalMonthlyOperations = yearlyReport.get(month);
-            // TODO: 15.02.2025 Переделать на printf Аналогично для других мест
-            System.out.println("За " + month + " месяц прибыль составила: " + (totalMonthlyOperations[1] - totalMonthlyOperations[0]));
+            System.out.printf("За %d месяц прибыль составила: %d", month, (totalMonthlyOperations[1] - totalMonthlyOperations[0]));
         }
     }
 
@@ -61,7 +60,7 @@ public class YearlyReport {
             int[] totalMonthlyOperations = yearlyReport.get(month);
             yearlyAverageExpense += totalMonthlyOperations[0];
         }
-        System.out.println("Средний расход за все месяцы составил: " + yearlyAverageExpense);
+        System.out.printf("Средний расход за все месяцы составил: %d", yearlyAverageExpense);
     }
 
     public void printAverageIncome() {
@@ -70,7 +69,7 @@ public class YearlyReport {
             int[] totalMonthlyOperations = yearlyReport.get(month);
             yearlyAverageIncome += totalMonthlyOperations[1];
         }
-        System.out.println("Средний доход за все месяцы составил: " + yearlyAverageIncome);
+        System.out.printf("Средний доход за все месяцы составил: %d", yearlyAverageIncome);
     }
 
     public boolean isReportHasBeenRead() {

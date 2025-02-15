@@ -1,3 +1,5 @@
+package ru.accounting_application.model;
+
 public class Transaction {
     private String name;
     private boolean isExpense;

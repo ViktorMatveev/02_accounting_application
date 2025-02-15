@@ -1,21 +1,13 @@
+package ru.accounting_application.utils;
+
+import ru.accounting_application.model.MonthlyReport;
+
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
-/*
-мапа, где
-    ключ - номер месяца
-    значение - массив
- */
-
 
 public class MonthTotalPerYear {
-    // TODO: 15.02.2025 Добавить инициализацию сразу в поле, убрать из конструктора
-    private final Map<Integer, MonthlyReport> map = new HashMap<>(); //пример
-    HashMap<Integer, MonthlyReport> monthTotalPerYearReport;
-
-    public MonthTotalPerYear() {
-        monthTotalPerYearReport = new HashMap<>();
-    }
+    private final Map<Integer, MonthlyReport> monthTotalPerYearReport = new HashMap<>(); //пример
 
     public void addData(int month, MonthlyReport monthlyReport) {
         monthTotalPerYearReport.put(month, monthlyReport);
@@ -32,7 +24,7 @@ public class MonthTotalPerYear {
     public void printMonthlyPerYearStatistic() {
         for (int month : monthTotalPerYearReport.keySet()) {
             MonthlyReport monthlyReport = monthTotalPerYearReport.get(month);
-            System.out.println("Статистика за " + month + " месяц:");
+            System.out.printf("Статистика за %d месяц: \n", month);
             monthlyReport.printMostProfitableProduct();
             monthlyReport.printMostExpendableProduct();
         }
