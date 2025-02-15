@@ -1,7 +1,7 @@
 import java.util.HashMap;
 
 public class YearlyReport {
-    private int currentYear = 2024;
+    private int currentYear = 2024; // TODO: 15.02.2025 Сделать константой
     private HashMap<Integer, int[]> yearlyReport; //месяц - [расходы, доходы]
 
     public YearlyReport() {
@@ -22,7 +22,7 @@ public class YearlyReport {
             }
         } else {
             int[] totalMonthlyOperations = new int[2];
-            if (reportData[2].equals("true")) {
+            if (reportData[2].equals("true")) { // TODO: 15.02.2025 true вынести в константу
                 totalMonthlyOperations[0] = currentSum;
             } else {
                 totalMonthlyOperations[1] = currentSum;
@@ -50,6 +50,7 @@ public class YearlyReport {
     public void printProfit() {
         for (int month : yearlyReport.keySet()) {
             int[] totalMonthlyOperations = yearlyReport.get(month);
+            // TODO: 15.02.2025 Переделать на printf Аналогично для других мест
             System.out.println("За " + month + " месяц прибыль составила: " + (totalMonthlyOperations[1] - totalMonthlyOperations[0]));
         }
     }

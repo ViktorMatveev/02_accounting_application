@@ -4,6 +4,7 @@ public class Transaction {
     private int quantity;
     private int unitPrice;
 
+    // TODO: 15.02.2025 Не должно быть неиспользуемого кода
     public Transaction(String name, boolean isExpense, int quantity, int unitPrice) {
         this.name = name;
         this.isExpense = isExpense;
@@ -21,7 +22,7 @@ public class Transaction {
 
     public String getName() {
         return this.name;
-    }
+    } // TODO: 15.02.2025 Можно не писать
 
     public boolean getIsExpense() {
         return this.isExpense;

@@ -1,12 +1,17 @@
 import java.util.*;
+// TODO: 15.02.2025 Добавить стандартный корневой пакет
+// TODO: 15.02.2025 1. model - описывают сущности реального мира
+//  2. service - содержит в себе бизнес-логику
+//  3. utils - классы, которые помогают делать бизнес-логику, но ее не содержат
+// TODO: 15.02.2025 Сменить версию джавы на 17. Почитать про lts-версии джавы (8, 11, 17, 21)
+public class Main { // TODO: 15.02.2025 В классе мейн не должно быть кода. Должен быть один класс, который вызывается
 
-public class Main {
-    public static void main(String[] args) {
+    // TODO: 15.02.2025 Все из этого метода вынести в отдельный класс, ApplicationRunner с единственным публичным методом run()
+    public static void main(String[] args) { // TODO: 15.02.2025 Метод должен влезать на один монитор.
         Scanner scanner = new Scanner(System.in);
         YearlyReport yearlyReport = new YearlyReport();
         MonthTotalPerYear monthTotalPerYear = new MonthTotalPerYear();
         ReportEngine reportEngine = new ReportEngine();
-
         while (true) {
             try {
                 printMenu();
@@ -88,7 +93,8 @@ public class Main {
         scanner.close();
     }
 
-    public static void printMenu() {
+    public static void printMenu() { // TODO: 15.02.2025 Сделать приватным
+        // TODO: 15.02.2025 Если надо напечатать несколько строк текста подряд, использовать многострочный текст через тройные кавычки
         System.out.println("Выберите нужно действие:");
         System.out.println("1. Считать все месячные отчеты.");
         System.out.println("2. Считать годовой отчет.");

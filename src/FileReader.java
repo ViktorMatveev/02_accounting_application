@@ -5,6 +5,10 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 public class FileReader {
+
+    // TODO: 15.02.2025 Необходимо использовать как можно более высокий уровень абстрации
+    //List, Set, Map, а не ArrayList<>, HashSet<>, HashMap<>
+    // TODO: 15.02.2025 Исправить везде
     ArrayList<String> readFileContests(String fileName) {
         String path = "./resources/" + fileName;
         try {

@@ -1,4 +1,5 @@
 import java.util.HashMap;
+import java.util.Map;
 import java.util.Set;
 /*
 мапа, где
@@ -8,6 +9,8 @@ import java.util.Set;
 
 
 public class MonthTotalPerYear {
+    // TODO: 15.02.2025 Добавить инициализацию сразу в поле, убрать из конструктора
+    private final Map<Integer, MonthlyReport> map = new HashMap<>(); //пример
     HashMap<Integer, MonthlyReport> monthTotalPerYearReport;
 
     public MonthTotalPerYear() {

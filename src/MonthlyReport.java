@@ -7,9 +7,11 @@ import java.util.HashMap;
     значение - список операций
  */
 
+// TODO: 15.02.2025 Комментарии нужны только полезные
+
 public class MonthlyReport {
-    private final String EXPENSES = "расходы";
-    private final String INCOMES = "доходы";
+    private final String EXPENSES = "расходы"; // TODO: 15.02.2025 Константы в джава объявляются через следующие слова: private static final
+    private final String INCOMES = "доходы";// TODO: 15.02.2025 Добавить static
     private String mostProfitableProductName;
     private int mostProfitableProductValue = 0;
     private String mostExpendableProductName;
@@ -21,7 +23,7 @@ public class MonthlyReport {
 
     public MonthlyReport() {
         monthlyReportByCategories = new HashMap<>();
-        monthlyReportByCategories.put(EXPENSES, new ArrayList<Transaction>());
+        monthlyReportByCategories.put(EXPENSES, new ArrayList<Transaction>()); // TODO: 15.02.2025 Убрать уточнение дженерика
         monthlyReportByCategories.put(INCOMES, new ArrayList<Transaction>());
     }
 
