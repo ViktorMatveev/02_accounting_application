@@ -6,76 +6,73 @@ import java.util.Map;
 public class YearlyReport {
     private static final int CURRENT_YEAR = 2024;
     private static final String TRUE = "true";
-    // TODO: 15.02.2025 Переименовать
-    // TODO: 15.02.2025 Не хорошо использовать массив для хранения бизнес-значений. Лучше создать отдельный класс-модель с двумя полями
-    private final Map<Integer, int[]> yearlyReport = new HashMap<>();
+    private Map<Integer, MonthTotalTransaction> totalTransactionsByMonth = new HashMap<>();
 
-    // TODO: 15.02.2025 Переименовать, и параметр метода тоже переименовать
-    public void addData(String data) {
-        String[] reportData = data.split(",");
-        int currentMonth = Integer.parseInt(reportData[0]);
-        int currentSum = Integer.parseInt(reportData[1]);
+    public void saveTotalTransaction(String fileReportLine) {
+        String[] transactionData = fileReportLine.split(",");
+        int currentMonth = Integer.parseInt(transactionData[0]);
+        int currentTransaction = Integer.parseInt(transactionData[1]);
+        boolean isCurrentTransactionExpense = transactionData[2].equals(TRUE);
 
-        if (yearlyReport.containsKey(currentMonth)) {
-            int[] totalMonthlyOperations = yearlyReport.get(currentMonth);
-            if (reportData[2].equals(TRUE)) {
-                totalMonthlyOperations[0] = currentSum;
+        if (totalTransactionsByMonth.containsKey(currentMonth)) {
+            MonthTotalTransaction currentMonthTotalTransactions = totalTransactionsByMonth.get(currentMonth);
+            if (isCurrentTransactionExpense) {
+                currentMonthTotalTransactions.setMonthTotalExpense(currentTransaction);
             } else {
-                totalMonthlyOperations[1] = currentSum;
+                currentMonthTotalTransactions.setMonthTotalIncome(currentTransaction);
             }
         } else {
-            int[] totalMonthlyOperations = new int[2];
-            if (reportData[2].equals(TRUE)) {
-                totalMonthlyOperations[0] = currentSum;
+            MonthTotalTransaction currentMonthTotalTransactions = new MonthTotalTransaction();
+            if (isCurrentTransactionExpense) {
+                currentMonthTotalTransactions.setMonthTotalExpense(currentTransaction);
             } else {
-                totalMonthlyOperations[1] = currentSum;
+                currentMonthTotalTransactions.setMonthTotalIncome(currentTransaction);
             }
-            yearlyReport.put(Integer.parseInt(reportData[0]), totalMonthlyOperations);
+            totalTransactionsByMonth.put(currentMonth, currentMonthTotalTransactions);
         }
     }
 
-    public int[] getDataPerMonth(int month) {
-        return yearlyReport.get(month);
+    public MonthTotalTransaction getTotalTransactionsByMonth(int month) {
+        return totalTransactionsByMonth.get(month);
     }
 
     public void printStatistic() {
-        if (!yearlyReport.isEmpty()) {
-            System.out.printf("рассматриваемый год - %d", CURRENT_YEAR);
+        if (!totalTransactionsByMonth.isEmpty()) {
+            System.out.printf("рассматриваемый год - %d\n", CURRENT_YEAR);
             printProfit();
             printAverageExpenses();
             printAverageIncome();
         } else {
             System.out.println("Данных нет");
         }
-// TODO: 15.02.2025 Не должно быть пустых строк, удалить
     }
 
     public void printProfit() {
-        for (int month : yearlyReport.keySet()) {
-            int[] totalMonthlyOperations = yearlyReport.get(month); // TODO: 15.02.2025 Убрать массивы на объекты
-            System.out.printf("За %d месяц прибыль составила: %d", month, (totalMonthlyOperations[1] - totalMonthlyOperations[0]));
+        for (int month : totalTransactionsByMonth.keySet()) {
+            MonthTotalTransaction currentMonthTransactions = totalTransactionsByMonth.get(month);
+            System.out.printf("За %d месяц прибыль составила: %d\n", month, (currentMonthTransactions.getMonthTotalIncome() - currentMonthTransactions.getMonthTotalExpense()));
         }
     }
 
     public void printAverageExpenses() {
         int yearlyAverageExpense = 0;
-        for (int month : yearlyReport.keySet()) {
-            int[] totalMonthlyOperations = yearlyReport.get(month);
-            yearlyAverageExpense += totalMonthlyOperations[0];
+        for (int month : totalTransactionsByMonth.keySet()) {
+            MonthTotalTransaction currentMonthTransactions = totalTransactionsByMonth.get(month);
+            yearlyAverageExpense += currentMonthTransactions.getMonthTotalExpense();
         }
-        System.out.printf("Средний расход за все месяцы составил: %d", yearlyAverageExpense);
+        System.out.printf("Средний расход за все месяцы составил: %d\n", yearlyAverageExpense);
     }
 
     public void printAverageIncome() {
         int yearlyAverageIncome = 0;
-        for (int month : yearlyReport.keySet()) {
-            int[] totalMonthlyOperations = yearlyReport.get(month);
-            yearlyAverageIncome += totalMonthlyOperations[1];
+        for (int month : totalTransactionsByMonth.keySet()) {
+            MonthTotalTransaction currentMonthTransactions = totalTransactionsByMonth.get(month);
+            yearlyAverageIncome += currentMonthTransactions.getMonthTotalIncome();
         }
-        System.out.printf("Средний доход за все месяцы составил: %d", yearlyAverageIncome);
+        System.out.printf("Средний доход за все месяцы составил: %d\n", yearlyAverageIncome);
     }
 
     public boolean isReportHasBeenRead() {
-        return !yearlyReport.isEmpty();
+        return !totalTransactionsByMonth.isEmpty();
     }
 }

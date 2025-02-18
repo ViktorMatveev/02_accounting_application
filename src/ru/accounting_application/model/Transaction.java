@@ -1,38 +1,37 @@
 package ru.accounting_application.model;
 
 public class Transaction {
-    // TODO: 15.02.2025 Это и не константы и не поля, сделать полями (назвать не капслоком)
-    private final String NAME;
-    private final boolean IS_EXPENSE;
-    private final int QUANTITY;
-    private final int UNIT_PRICE;
+    private String name;
+    private boolean isExpense;
+    private int quantity;
+    private int unitPrice;
 
     public Transaction(String transactionDataLine) {
         String[] transactionData = transactionDataLine.split(",");
-        this.NAME = transactionData[0];
-        this.IS_EXPENSE = transactionData[1].equals("TRUE");
-        this.QUANTITY = Integer.parseInt(transactionData[2]);
-        this.UNIT_PRICE = Integer.parseInt(transactionData[3]);
+        this.name = transactionData[0];
+        this.isExpense = transactionData[1].equals("TRUE");
+        this.quantity = Integer.parseInt(transactionData[2]);
+        this.unitPrice = Integer.parseInt(transactionData[3]);
     }
 
     public String getName() {
-        return NAME;
+        return name;
     }
 
     public boolean getIsExpense() {
-        return IS_EXPENSE;
+        return isExpense;
     }
 
     public int getQuantity() {
-        return QUANTITY;
+        return quantity;
     }
 
     public int getUnitPrice() {
-        return UNIT_PRICE;
+        return unitPrice;
     }
 
     public String toString() {
-        return NAME + " - " + UNIT_PRICE * QUANTITY;
+        return name + " - " + unitPrice * quantity;
     }
 
 }

@@ -9,31 +9,28 @@ public class MonthlyReport {
     private static final String EXPENSES = "расходы";
     private static final String INCOMES = "доходы";
     private String mostProfitableProductName;
-    private int mostProfitableProductValue = 0;
+    private int mostProfitableProductValue;
     private String mostExpendableProductName;
-    private int mostExpendableProductValue = 0;
+    private int mostExpendableProductValue;
     private int monthTotalExpenses;
     private int monthTotalIncome;
-    // TODO: 15.02.2025 List!
-    // TODO: 15.02.2025 Не константа
-    // TODO: 15.02.2025 rename transactionsByCategories
-    private final Map<String, ArrayList<Transaction>> MONTHLY_REPORT_BY_CATEGORIES = new HashMap<>();
+    private Map<String, List<Transaction>> transactionsByCategories = new HashMap<>();
 
     public MonthlyReport() {
-        MONTHLY_REPORT_BY_CATEGORIES.put(EXPENSES, new ArrayList<>());
-        MONTHLY_REPORT_BY_CATEGORIES.put(INCOMES, new ArrayList<>());
+        transactionsByCategories.put(EXPENSES, new ArrayList<>());
+        transactionsByCategories.put(INCOMES, new ArrayList<>());
     }
 
     public List<Transaction> getMonthlyExpenses() {
-        return MONTHLY_REPORT_BY_CATEGORIES.get(EXPENSES);
+        return transactionsByCategories.get(EXPENSES);
     }
 
     public List<Transaction> getMonthlyIncome() {
-        return MONTHLY_REPORT_BY_CATEGORIES.get(INCOMES);
+        return transactionsByCategories.get(INCOMES);
     }
 
     public void printMostProfitableProduct() {
-        List<Transaction> incomeTransactions = MONTHLY_REPORT_BY_CATEGORIES.get(INCOMES);
+        List<Transaction> incomeTransactions = transactionsByCategories.get(INCOMES);
         for (Transaction transaction : incomeTransactions) {
             int transactionValue = transaction.getUnitPrice() * transaction.getQuantity();
             if (transactionValue > mostProfitableProductValue) {
@@ -45,7 +42,7 @@ public class MonthlyReport {
     }
 
     public void printMostExpendableProduct() {
-        List<Transaction> expenseTransaction = MONTHLY_REPORT_BY_CATEGORIES.get(EXPENSES);
+        List<Transaction> expenseTransaction = transactionsByCategories.get(EXPENSES);
         for (Transaction transaction : expenseTransaction) {
             int transactionValue = transaction.getUnitPrice() * transaction.getQuantity();
             if (transactionValue > mostExpendableProductValue) {
@@ -57,7 +54,7 @@ public class MonthlyReport {
     }
 
     public int getMonthTotalExpenses() {
-        List<Transaction> expenseTransaction = MONTHLY_REPORT_BY_CATEGORIES.get(EXPENSES);
+        List<Transaction> expenseTransaction = transactionsByCategories.get(EXPENSES);
         for (Transaction transaction : expenseTransaction) {
             int transactionValue = transaction.getUnitPrice() * transaction.getQuantity();
             monthTotalExpenses += transactionValue;
@@ -66,7 +63,7 @@ public class MonthlyReport {
     }
 
     public int getMonthTotalIncome() {
-        List<Transaction> incomeTransaction = MONTHLY_REPORT_BY_CATEGORIES.get(INCOMES);
+        List<Transaction> incomeTransaction = transactionsByCategories.get(INCOMES);
         for (Transaction transaction : incomeTransaction) {
             int transactionValue = transaction.getUnitPrice() * transaction.getQuantity();
             monthTotalIncome += transactionValue;
