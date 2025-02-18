@@ -11,7 +11,7 @@ public class ReportService {
     private static final FileReader FILE_READER = new FileReader();
     public YearlyReport yearlyReport = new YearlyReport();
     public MonthReportsByMonth monthReportsByMonth = new MonthReportsByMonth();
-    public static final String READ_REPORTS_MESSAGE = """
+    private static final String READ_REPORTS_MESSAGE = """
                 Считать данные?
                 1 - Да
                 2 - Нет
