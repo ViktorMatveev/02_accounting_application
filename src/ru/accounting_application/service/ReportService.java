@@ -11,10 +11,13 @@ public class ReportService {
     private static final FileReader FILE_READER = new FileReader();
     public YearlyReport yearlyReport = new YearlyReport();
     public MonthReportsByMonth monthReportsByMonth = new MonthReportsByMonth();
+    public static final String READ_REPORTS_MESSAGE = """
+                Считать данные?
+                1 - Да
+                2 - Нет
+                """;
 
     public void generateAllMonthlyReports() {
-        monthReportsByMonth = new MonthReportsByMonth(); // TODO: 18.02.2025 Нет смысла заводить переменную, чтобы потом приравнять ее к полю
-        //Переделай аналогично похожие методы
         for (int i = 9; i <= 12; i++) {
             String fileName = "m." + (202400 + i) + ".csv";
             List<String> fileLines = FILE_READER.readFileContests(fileName);
@@ -35,13 +38,11 @@ public class ReportService {
     }
 
     public void generateYearlyReport() {
-        YearlyReport yearlyReport = new YearlyReport();
         List<String> fileLines = FILE_READER.readFileContests(YEAR_REPORT_NAME);
         for (int i = 1; i < fileLines.size(); i++) {
             yearlyReport.saveTotalTransaction(fileLines.get(i));
         }
         System.out.println("Данные успешно сохранены");
-        this.yearlyReport = yearlyReport;
     }
 
     public void compareMonthAndYearlyReports() {
@@ -66,7 +67,7 @@ public class ReportService {
         }
     }
 
-    public void printCompareReports(Scanner scanner, String askToReadFiles) {
+    public void printCompareReports(Scanner scanner) {
         if (!yearlyReport.isReportHasBeenRead()) {
             System.out.println("Данные годового отчета не были прочитаны!");
         }
@@ -76,7 +77,7 @@ public class ReportService {
         if (yearlyReport.isReportHasBeenRead() && monthReportsByMonth.isMonthReportsHasBeenRead()) {
             compareMonthAndYearlyReports();
         } else {
-            System.out.println(askToReadFiles);
+            System.out.println(READ_REPORTS_MESSAGE);
             int answer = scanner.nextInt();
             if (answer == 1) {
                 if (!monthReportsByMonth.isMonthReportsHasBeenRead()) {
@@ -94,11 +95,11 @@ public class ReportService {
         }
     }
 
-    public void printAllMonthReportsStatistic(Scanner scanner, String askToReadReportFiles) {
+    public void printAllMonthReportsStatistic(Scanner scanner) {
         if (monthReportsByMonth.isMonthReportsHasBeenRead()) {
             monthReportsByMonth.printAllMonthReportsStatistic();
         } else {
-            System.out.printf("Данные месячных отчетов не были прочитаны! %s", askToReadReportFiles);
+            System.out.printf("Данные месячных отчетов не были прочитаны! %s", READ_REPORTS_MESSAGE);
             int answer = scanner.nextInt();
             if (answer == 1) {
                 generateAllMonthlyReports();
@@ -109,11 +110,11 @@ public class ReportService {
         }
     }
 
-    public void printYearReportStatistic(Scanner scanner, String askToReadFiles) {
+    public void printYearReportStatistic(Scanner scanner) {
         if (yearlyReport.isReportHasBeenRead()) {
             yearlyReport.printStatistic();
         } else {
-            System.out.printf("Данные годового отчета не были прочитаны! %s", askToReadFiles);
+            System.out.printf("Данные годового отчета не были прочитаны! %s", READ_REPORTS_MESSAGE);
             int answer = scanner.nextInt();
             if (answer == 1) {
                 generateYearlyReport();

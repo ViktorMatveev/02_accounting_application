@@ -14,9 +14,9 @@ public class ApplicationRunner {
                 switch (command) {
                     case 1 -> reportService.generateAllMonthlyReports();
                     case 2 -> reportService.generateYearlyReport();
-                    case 3 -> reportService.printCompareReports(scanner, askToReadReportFiles);
-                    case 4 -> reportService.printAllMonthReportsStatistic(scanner, askToReadReportFiles);
-                    case 5 -> reportService.printYearReportStatistic(scanner, askToReadReportFiles);
+                    case 3 -> reportService.printCompareReports(scanner);
+                    case 4 -> reportService.printAllMonthReportsStatistic(scanner);
+                    case 5 -> reportService.printYearReportStatistic(scanner);
                     case 0 -> {
                         System.out.println("Exit");
                         return;
@@ -41,12 +41,4 @@ public class ApplicationRunner {
                 5. Вывести информацию о годовом отчете.
                 0. Выйти.""");
     }
-
-    // TODO: 18.02.2025 Переименовать, вынести в константу. Константы всегда в начале классов
-    //И если ты передаешь эту константу в репортсервис, то может, ей место там?
-    public static String askToReadReportFiles = """
-                Считать данные?
-                1 - Да
-                2 - Нет
-                """;
 }
