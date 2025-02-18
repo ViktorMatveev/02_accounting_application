@@ -13,7 +13,8 @@ public class ReportService {
     public MonthReportsByMonth monthReportsByMonth = new MonthReportsByMonth();
 
     public void generateAllMonthlyReports() {
-        MonthReportsByMonth monthReportsByMonth = new MonthReportsByMonth();
+        monthReportsByMonth = new MonthReportsByMonth(); // TODO: 18.02.2025 Нет смысла заводить переменную, чтобы потом приравнять ее к полю
+        //Переделай аналогично похожие методы
         for (int i = 9; i <= 12; i++) {
             String fileName = "m." + (202400 + i) + ".csv";
             List<String> fileLines = FILE_READER.readFileContests(fileName);
@@ -31,7 +32,6 @@ public class ReportService {
             }
         }
         System.out.println("Данные успешно сохранены");
-        this.monthReportsByMonth = monthReportsByMonth;
     }
 
     public void generateYearlyReport() {
